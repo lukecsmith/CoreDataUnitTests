@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="CoreDataUnitTests" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="enc-tS-UdU">
+                                <rect key="frame" x="16" y="20" width="343" height="506"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CSy-TB-A3g">
+                                <rect key="frame" x="16" y="526" width="343" height="141"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smp-j9-p41">
+                                        <rect key="frame" x="8" y="30" width="163.5" height="81"/>
+                                        <state key="normal" title="Add"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y66-g3-YQ9">
+                                        <rect key="frame" x="171.5" y="30" width="163.5" height="81"/>
+                                        <state key="normal" title="Remove"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Y66-g3-YQ9" secondAttribute="bottom" constant="30" id="1Bb-Ih-KUy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y66-g3-YQ9" secondAttribute="trailing" constant="8" id="APD-Lw-bVq"/>
+                                    <constraint firstItem="smp-j9-p41" firstAttribute="leading" secondItem="CSy-TB-A3g" secondAttribute="leading" constant="8" id="JRq-dh-GvY"/>
+                                    <constraint firstItem="smp-j9-p41" firstAttribute="top" secondItem="CSy-TB-A3g" secondAttribute="top" constant="30" id="Mhy-XL-o6F"/>
+                                    <constraint firstItem="Y66-g3-YQ9" firstAttribute="width" secondItem="smp-j9-p41" secondAttribute="width" id="OIA-gY-JUk"/>
+                                    <constraint firstItem="Y66-g3-YQ9" firstAttribute="leading" secondItem="smp-j9-p41" secondAttribute="trailing" id="fxf-F5-uF5"/>
+                                    <constraint firstAttribute="bottom" secondItem="smp-j9-p41" secondAttribute="bottom" constant="30" id="nth-VT-VJE"/>
+                                    <constraint firstItem="Y66-g3-YQ9" firstAttribute="top" secondItem="CSy-TB-A3g" secondAttribute="top" constant="30" id="rzn-ZP-w8s"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="526" id="E17-hX-Rl3"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Eks-nJ-ggA"/>
+                            <constraint firstItem="enc-tS-UdU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LU3-du-ueN"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="leading" secondItem="enc-tS-UdU" secondAttribute="leading" id="R1d-gz-94b"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="top" secondItem="enc-tS-UdU" secondAttribute="bottom" id="V0u-nQ-U1U"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="XIB-8Y-xrc"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="bCo-xI-RF4"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="trailing" secondItem="enc-tS-UdU" secondAttribute="trailing" id="vdq-1w-VqZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+</document>
