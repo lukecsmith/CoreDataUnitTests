@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //inject the Core Data managed object context directly into main view controller
         guard let mainVC = self.window?.rootViewController as? MainViewController else {
-            print("Unable to get access to main window")
-            return false
+            fatalError("Unable to get access to main window")
         }
         let context = self.persistentContainer.viewContext
         mainVC.viewModel.context = context
