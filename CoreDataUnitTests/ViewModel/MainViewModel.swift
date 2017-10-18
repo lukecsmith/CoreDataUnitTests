@@ -38,7 +38,6 @@ class MainViewModel {
             } catch {
                 throw ViewModelError.errorWhileCreatingObject
             }
-
         } else {
             throw ViewModelError.missingContext
         }
