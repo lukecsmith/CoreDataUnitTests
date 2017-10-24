@@ -9,9 +9,11 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MainViewModelDelegate {
+    //MARK: Properties
     @IBOutlet weak var tableView: UITableView!
-    let viewModel = MainViewModel()
     @IBOutlet weak var sortByButton: UIButton!
+    let viewModel = MainViewModel()
+    //MARK: Object Lifecycle
     override func awakeFromNib() {
         self.viewModel.delegate = self
     }
@@ -45,13 +47,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.viewModel.updateTableData()
     }
+    //MARK: IBActions
     @IBAction func sortByClicked(_ sender: Any) {
         self.toggleSortMode()
-    }
-    func toggleSortMode() {
-        let text = self.viewModel.switchSortModeAndReturnButtonText()
-        self.sortByButton.setTitle(text, for: UIControlState.normal)
-        self.viewModel.updateTableData()
     }
     @IBAction func delHighestClicked(_ sender: Any) {
         do {
@@ -67,6 +65,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } catch {
             fatalError("Missing core data context")
         }
+        self.viewModel.updateTableData()
+    }
+    func toggleSortMode() {
+        let text = self.viewModel.switchSortModeAndReturnButtonText()
+        self.sortByButton.setTitle(text, for: UIControlState.normal)
         self.viewModel.updateTableData()
     }
     //MARK: MainViewModelDelegate
