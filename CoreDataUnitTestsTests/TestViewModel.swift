@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import CoreData
 
 @testable import CoreDataUnitTests
 
@@ -17,9 +18,8 @@ class TestViewModel: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        //create a view model
-        //create a context
+        //put our test context onto the viewmodel
+        viewModel.context = self.context
     }
     
     override func tearDown() {
@@ -42,6 +42,22 @@ class TestViewModel: XCTestCase {
         }
     }*/
     func testCreateAnObject() {
+        do {
+            try UnitTestHelpers.deleteAllObjects(objectType: ExampleObject.self, withContext: context)
+            try viewModel.createAnObject()
+            try viewModel.createAnObject()
+        } catch {
+            XCTFail("Could not delete objects")
+        }
+        guard let fetchRequest = ExampleObject.fetchRequest() as? NSFetchRequest else {
+            XCTFail("Unable to create fetch request")
+        }
+        do {
+            let results = try context.fetch(fetchRequest)
+            XCTAssert(results.count == 2)
+        } catch {
+            XCTFail("Cannot fetch results")
+        }
         
     }
     

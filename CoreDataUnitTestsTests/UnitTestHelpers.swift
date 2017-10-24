@@ -11,6 +11,12 @@ import CoreData
 
 @testable import CoreDataUnitTests
 
+enum CoreDataError: Error {
+    case missingContext
+    case errorWhileDeleting
+    case couldNotCreateFetchRequest
+}
+
 class UnitTestHelpers {
     
     class func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {
@@ -27,10 +33,28 @@ class UnitTestHelpers {
         context.persistentStoreCoordinator = persistentStoreCoordinator
         
         /* create a dummy object, then delete it.  this avoids fetch request errors later */
-        
         let testObject = ExampleObject(context: context)
         context.delete(testObject)
         
         return context
+    }
+    
+    class func deleteAllObjects<T: NSManagedObject>(objectType: T.Type, withContext moc: NSManagedObjectContext) throws {
+        let fetchRequestOp: NSFetchRequest<T>? = T.fetchRequest() as? NSFetchRequest<T>
+        guard let fetchRequest = fetchRequestOp else {
+            throw CoreDataError.couldNotCreateFetchRequest
+        }
+        do {
+            var results = try moc.fetch(fetchRequest)
+            print("Found \(results.count) objects of type \(T.description())")
+            results.forEach { object in
+                moc.delete(object)
+            }
+            try moc.save()
+            results = try moc.fetch(fetchRequest)
+            print("Objects left : \(results.count)")
+        } catch {
+            throw CoreDataError.couldNotCreateFetchRequest
+        }
     }
 }
