@@ -18,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="enc-tS-UdU">
-                                <rect key="frame" x="16" y="20" width="343" height="506"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="enc-tS-UdU">
+                                <rect key="frame" x="16" y="20" width="343" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mainCell" textLabel="fIA-42-0ml" detailTextLabel="oX4-L6-yhq" style="IBUITableViewCellStyleValue1" id="mD2-jM-1CN">
@@ -55,10 +54,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CSy-TB-A3g">
-                                <rect key="frame" x="16" y="526" width="343" height="141"/>
+                                <rect key="frame" x="16" y="567" width="343" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smp-j9-p41">
-                                        <rect key="frame" x="8" y="30" width="109" height="81"/>
+                                        <rect key="frame" x="8" y="9.5" width="109" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="ez7-P1-aP6"/>
                                         </constraints>
@@ -68,7 +67,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y66-g3-YQ9">
-                                        <rect key="frame" x="117" y="30" width="109" height="81"/>
+                                        <rect key="frame" x="117" y="9.5" width="109" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="BYX-xY-MRV"/>
                                         </constraints>
@@ -79,7 +78,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoL-t4-jnk">
-                                        <rect key="frame" x="226" y="30" width="109" height="81"/>
+                                        <rect key="frame" x="226" y="9.5" width="109" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="ksh-Wc-fqP"/>
                                         </constraints>
@@ -97,22 +96,40 @@
                                     <constraint firstItem="yoL-t4-jnk" firstAttribute="width" secondItem="smp-j9-p41" secondAttribute="width" id="Bpx-TL-O6K"/>
                                     <constraint firstItem="yoL-t4-jnk" firstAttribute="centerY" secondItem="CSy-TB-A3g" secondAttribute="centerY" id="FlM-Om-6ng"/>
                                     <constraint firstAttribute="trailing" secondItem="yoL-t4-jnk" secondAttribute="trailing" constant="8" id="KXz-AD-LSF"/>
-                                    <constraint firstAttribute="height" constant="141" id="KZ6-Uv-AkL"/>
+                                    <constraint firstAttribute="height" constant="100" id="KZ6-Uv-AkL"/>
                                     <constraint firstItem="smp-j9-p41" firstAttribute="leading" secondItem="CSy-TB-A3g" secondAttribute="leading" constant="8" id="She-E7-IEz"/>
                                     <constraint firstItem="yoL-t4-jnk" firstAttribute="leading" secondItem="Y66-g3-YQ9" secondAttribute="trailing" id="lXD-mD-MvT"/>
                                     <constraint firstItem="Y66-g3-YQ9" firstAttribute="centerY" secondItem="CSy-TB-A3g" secondAttribute="centerY" id="pFt-bX-Ul5"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SxS-6k-Eos">
+                                <rect key="frame" x="16" y="518" width="343" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="c2X-Fr-8mR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="sortByClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QHM-2h-gVv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="CSy-TB-A3g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="42c-6B-k0I"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SxS-6k-Eos" secondAttribute="trailing" constant="16" id="Gjn-PO-DW9"/>
+                            <constraint firstItem="SxS-6k-Eos" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RNG-QX-gGF"/>
+                            <constraint firstItem="enc-tS-UdU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Rwn-Mc-wNg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CSy-TB-A3g" secondAttribute="trailing" constant="16" id="c0v-8Z-01I"/>
                             <constraint firstItem="CSy-TB-A3g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="cgL-et-QZt"/>
+                            <constraint firstItem="enc-tS-UdU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="cuY-OO-ipY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="enc-tS-UdU" secondAttribute="trailing" constant="16" id="hU6-db-cPp"/>
+                            <constraint firstItem="CSy-TB-A3g" firstAttribute="top" secondItem="SxS-6k-Eos" secondAttribute="bottom" id="iUO-ym-syQ"/>
+                            <constraint firstItem="SxS-6k-Eos" firstAttribute="top" secondItem="enc-tS-UdU" secondAttribute="bottom" id="vTI-4Q-9xC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="sortByButton" destination="SxS-6k-Eos" id="vst-Mk-2Gf"/>
                         <outlet property="tableView" destination="enc-tS-UdU" id="YSz-6f-0a9"/>
                     </connections>
                 </viewController>

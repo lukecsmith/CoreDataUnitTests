@@ -72,16 +72,9 @@
 			isa = PBXGroup;
 			children = (
 				07B0DBAF1F92410600146F05 /* MainViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		074CB3311F95087C00A40687 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
 				07201A7E1F949B9500EC2D4D /* MainViewModel.swift */,
 			);
-			path = ViewModel;
+			path = View;
 			sourceTree = "<group>";
 		};
 		07B0DBA11F92410600146F05 = {
@@ -108,7 +101,6 @@
 				07B0DBAD1F92410600146F05 /* AppDelegate.swift */,
 				07B0DBB11F92410600146F05 /* Main.storyboard */,
 				074CB3301F95086B00A40687 /* View */,
-				074CB3311F95087C00A40687 /* ViewModel */,
 				074CB32F1F95085800A40687 /* CoreData */,
 				07B0DBB71F92410600146F05 /* Assets.xcassets */,
 				07B0DBB91F92410600146F05 /* LaunchScreen.storyboard */,

@@ -19,6 +19,25 @@ enum ViewModelError: Error {
     case unableToCreateFetchRequest
 }
 
+enum SortMode {
+    case sortByInt
+    case sortByDate
+    var displayString : String {
+        switch self {
+        case .sortByInt : return "Sort By Date" //reversed because we want to display the opposite option on the button
+        case .sortByDate : return "Sort By Int" 
+        }
+    }
+    var sortString : String {
+        switch self {
+        case .sortByInt:
+            return "randomInt"
+        default:
+            return "date"
+        }
+    }
+}
+
 protocol MainViewModelDelegate {
     func refreshTable()
 }
@@ -29,6 +48,7 @@ class MainViewModel {
     var context : NSManagedObjectContext? = nil
     var tableContents : [ExampleObject] = []
     var delegate : MainViewModelDelegate? = nil
+    var sortMode : SortMode = .sortByInt
     
     func createAnObject() throws {
         if let context = self.context {
@@ -47,7 +67,7 @@ class MainViewModel {
     
     func updateTableData() {
         do {
-            let objects : [ExampleObject] = try self.fetchObjects(sortedBy: nil, ascending: nil)
+            let objects : [ExampleObject] = try self.fetchObjects(sortedBy: self.sortMode.sortString, ascending: true)
             self.tableContents = objects
             self.delegate?.refreshTable()
         } catch {
@@ -111,5 +131,16 @@ class MainViewModel {
         } catch {
             throw ViewModelError.errorWhileRemovingHighestNo
         }
+    }
+    
+    func switchSortModeAndReturnButtonText() -> String {
+        //toggle the sort mode
+        if self.sortMode == .sortByInt {
+            self.sortMode = .sortByDate
+        } else {
+            self.sortMode = .sortByInt
+        }
+        //update the button text
+        return sortMode.displayString
     }
 }

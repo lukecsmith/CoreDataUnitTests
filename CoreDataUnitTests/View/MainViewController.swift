@@ -9,19 +9,16 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MainViewModelDelegate {
-    
     @IBOutlet weak var tableView: UITableView!
     let viewModel = MainViewModel()
-    
+    @IBOutlet weak var sortByButton: UIButton!
     override func awakeFromNib() {
         self.viewModel.delegate = self
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel.updateTableData()
+        self.toggleSortMode() //also updates the tableview
     }
-    
     //MARK: Tableview DataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)
@@ -34,15 +31,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return cell
     }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableContents.count
     }
-    
     @IBAction func addClicked(_ sender: Any) {
         do {
             try self.viewModel.createAnObject()
@@ -51,7 +45,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.viewModel.updateTableData()
     }
-    
+    @IBAction func sortByClicked(_ sender: Any) {
+        self.toggleSortMode()
+    }
+    func toggleSortMode() {
+        let text = self.viewModel.switchSortModeAndReturnButtonText()
+        self.sortByButton.setTitle(text, for: UIControlState.normal)
+        self.viewModel.updateTableData()
+    }
     @IBAction func delHighestClicked(_ sender: Any) {
         do {
             try self.viewModel.removeHighestNumberObject()
@@ -60,7 +61,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.viewModel.updateTableData()
     }
-    
     @IBAction func delLastClicked(_ sender: Any) {
         do {
             try self.viewModel.removeMostRecentObject()
@@ -69,9 +69,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.viewModel.updateTableData()
     }
-    
     //MARK: MainViewModelDelegate
-    
     func refreshTable() {
         self.tableView.reloadData()
     }
