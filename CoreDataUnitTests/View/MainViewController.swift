@@ -19,13 +19,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-            try self.viewModel.fetchObjects()
-        } catch {
-            fatalError("Unable to fetch objects from core data")
-        }
-        
-        // Do any additional setup after loading the view, typically from a nib.
+        self.viewModel.updateTableData()
     }
     
     //MARK: Tableview DataSource
@@ -55,14 +49,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } catch {
             fatalError("Missing core data context")
         }
+        self.viewModel.updateTableData()
     }
     
     @IBAction func delHighestClicked(_ sender: Any) {
-        
+        do {
+            try self.viewModel.removeHighestNumberObject()
+        } catch {
+            fatalError("Missing core data context")
+        }
+        self.viewModel.updateTableData()
     }
     
     @IBAction func delLastClicked(_ sender: Any) {
-        
+        do {
+            try self.viewModel.removeMostRecentObject()
+        } catch {
+            fatalError("Missing core data context")
+        }
+        self.viewModel.updateTableData()
     }
     
     //MARK: MainViewModelDelegate

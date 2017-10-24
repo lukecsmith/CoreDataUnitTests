@@ -14,6 +14,9 @@ enum ViewModelError: Error {
     case noDataForThatRow
     case errorWhileFetchingData
     case errorWhileCreatingObject
+    case errorWhileRemovingLastObject
+    case errorWhileRemovingHighestNo
+    case unableToCreateFetchRequest
 }
 
 protocol MainViewModelDelegate {
@@ -34,7 +37,6 @@ class MainViewModel {
             newObject.date = Date()
             do {
                 try context.save()
-                try fetchObjects()
             } catch {
                 throw ViewModelError.errorWhileCreatingObject
             }
@@ -43,14 +45,31 @@ class MainViewModel {
         }
     }
     
-    func fetchObjects() throws {
+    func updateTableData() {
         do {
-            let fetchRequest : NSFetchRequest<ExampleObject> = ExampleObject.fetchRequest()
-            guard let context = self.context else {
-                throw ViewModelError.missingContext
-            }
-            self.tableContents = try context.fetch(fetchRequest)
+            let objects : [ExampleObject] = try self.fetchObjects(sortedBy: nil, ascending: nil)
+            self.tableContents = objects
             self.delegate?.refreshTable()
+        } catch {
+            fatalError("unable to retrieve objects from core data")
+        }
+    }
+    
+    func fetchObjects<T: NSManagedObject>(sortedBy: String?, ascending: Bool?) throws -> [T] {
+        guard let context = self.context else {
+            throw ViewModelError.missingContext
+        }
+        guard let fetchRequest = T.fetchRequest() as? NSFetchRequest<T> else {
+            throw ViewModelError.unableToCreateFetchRequest
+        }
+        if let sortBy = sortedBy, let ascending = ascending {
+            let sortDescriptor = NSSortDescriptor(key: sortBy, ascending: ascending)
+            let sortDescriptors = [sortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+        }
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results
         } catch {
             throw ViewModelError.errorWhileFetchingData
         }
@@ -65,10 +84,32 @@ class MainViewModel {
     }
     
     func removeMostRecentObject() throws {
-        
+        guard let context = self.context else {
+            throw ViewModelError.missingContext
+        }
+        do {
+            let searchResults : [ExampleObject] = try self.fetchObjects(sortedBy: "date", ascending: true)
+            if searchResults.count > 0, let last = searchResults.last {
+                context.delete(last)
+                self.updateTableData()
+            }
+        } catch {
+            throw ViewModelError.errorWhileRemovingLastObject
+        }
     }
     
     func removeHighestNumberObject() throws {
-        
+        guard let context = self.context else {
+            throw ViewModelError.missingContext
+        }
+        do {
+            let searchResults : [ExampleObject] = try self.fetchObjects(sortedBy: "randomInt", ascending: true)
+            if searchResults.count > 0, let last = searchResults.last {
+                context.delete(last)
+                self.updateTableData()
+            }
+        } catch {
+            throw ViewModelError.errorWhileRemovingHighestNo
+        }
     }
 }

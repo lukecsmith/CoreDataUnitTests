@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //inject the Core Data managed object context directly into main view controller
+        //doing it this way means that during tests, we can substitute a test context
         guard let mainVC = self.window?.rootViewController as? MainViewController else {
             fatalError("Unable to get access to main window")
         }
