@@ -9,10 +9,12 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MainViewModelDelegate {
+    
     //MARK: Properties
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortByButton: UIButton!
     let viewModel = MainViewModel()
+    
     //MARK: Object Lifecycle
     override func awakeFromNib() {
         self.viewModel.delegate = self
@@ -21,6 +23,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         self.toggleSortMode() //also updates the tableview
     }
+    
     //MARK: Tableview DataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)
@@ -39,6 +42,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableContents.count
     }
+    
+    //MARK: IBActions
     @IBAction func addClicked(_ sender: Any) {
         do {
             try self.viewModel.createAnObject()
@@ -48,7 +53,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.viewModel.updateTableData()
     }
-    //MARK: IBActions
+    
     @IBAction func sortByClicked(_ sender: Any) {
         self.toggleSortMode()
     }
