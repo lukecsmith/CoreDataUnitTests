@@ -26,39 +26,28 @@ class TestViewModel: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    /*
-    func createAnObject() throws {
-        if let context = self.context {
-            let newObject = ExampleObject(context: context)
-            newObject.randomInt =  Int16(arc4random_uniform(100))
-            newObject.date = Date()
-            do {
-                try context.save()
-            } catch {
-                throw ViewModelError.errorWhileCreatingObject
-            }
-        } else {
-            throw ViewModelError.missingContext
-        }
-    }*/
+    
     func testCreateAnObject() {
+        //empty store of objects by deleting all.  then add 3 object to it.
         do {
             try UnitTestHelpers.deleteAllObjects(objectType: ExampleObject.self, withContext: context)
             try viewModel.createAnObject()
             try viewModel.createAnObject()
+            try viewModel.createAnObject()
         } catch {
-            XCTFail("Could not delete objects")
+            if let vmerror = error as? ViewModelError {
+                print("error : \(vmerror.localizedDescription)")
+            }
+            XCTFail("Could not create objects")
         }
-        guard let fetchRequest = ExampleObject.fetchRequest() as? NSFetchRequest else {
-            XCTFail("Unable to create fetch request")
-        }
+        //create a fetch request to retrieve all those objects
+        let fetchRequest = ExampleObject.fetchRequest() as NSFetchRequest<ExampleObject>
         do {
             let results = try context.fetch(fetchRequest)
-            XCTAssert(results.count == 2)
+            XCTAssert(results.count == 3)
         } catch {
-            XCTFail("Cannot fetch results")
+            XCTFail("Unabled to fetch objects")
         }
-        
     }
     
     func testUpdateTableData() {

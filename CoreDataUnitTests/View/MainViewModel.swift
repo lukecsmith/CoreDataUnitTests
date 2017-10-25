@@ -55,11 +55,6 @@ class MainViewModel {
             let newObject = ExampleObject(context: context)
             newObject.randomInt =  Int16(arc4random_uniform(100))
             newObject.date = Date()
-            do {
-                try context.save()
-            } catch {
-                throw ViewModelError.errorWhileCreatingObject
-            }
         } else {
             throw ViewModelError.missingContext
         }

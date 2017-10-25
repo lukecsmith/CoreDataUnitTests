@@ -42,8 +42,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func addClicked(_ sender: Any) {
         do {
             try self.viewModel.createAnObject()
+            try self.viewModel.context?.save()
         } catch {
-            fatalError("Missing core data context")
+            fatalError("Unable to create an object and save")
         }
         self.viewModel.updateTableData()
     }
@@ -54,16 +55,18 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func delHighestClicked(_ sender: Any) {
         do {
             try self.viewModel.removeHighestNumberObject()
+            try self.viewModel.context?.save()
         } catch {
-            fatalError("Missing core data context")
+            fatalError("Unable to delete highest object and save")
         }
         self.viewModel.updateTableData()
     }
     @IBAction func delLastClicked(_ sender: Any) {
         do {
             try self.viewModel.removeMostRecentObject()
+            try self.viewModel.context?.save()
         } catch {
-            fatalError("Missing core data context")
+            fatalError("Unable to delete last object and save")
         }
         self.viewModel.updateTableData()
     }

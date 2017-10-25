@@ -15,6 +15,7 @@ enum CoreDataError: Error {
     case missingContext
     case errorWhileDeleting
     case couldNotCreateFetchRequest
+    case errorWhileFetchingData
 }
 
 class UnitTestHelpers {
@@ -35,26 +36,45 @@ class UnitTestHelpers {
         /* create a dummy object, then delete it.  this avoids fetch request errors later */
         let testObject = ExampleObject(context: context)
         context.delete(testObject)
+        do {
+            try context.save()
+        } catch {
+            fatalError("Unable to save context")
+        }
         
         return context
     }
     
     class func deleteAllObjects<T: NSManagedObject>(objectType: T.Type, withContext moc: NSManagedObjectContext) throws {
-        let fetchRequestOp: NSFetchRequest<T>? = T.fetchRequest() as? NSFetchRequest<T>
-        guard let fetchRequest = fetchRequestOp else {
+        guard let fetchRequest: NSFetchRequest<T> = T.fetchRequest() as? NSFetchRequest<T> else {
             throw CoreDataError.couldNotCreateFetchRequest
         }
         do {
-            var results = try moc.fetch(fetchRequest)
+            let results = try moc.fetch(fetchRequest)
             print("Found \(results.count) objects of type \(T.description())")
             results.forEach { object in
                 moc.delete(object)
             }
             try moc.save()
-            results = try moc.fetch(fetchRequest)
-            print("Objects left : \(results.count)")
         } catch {
             throw CoreDataError.couldNotCreateFetchRequest
+        }
+    }
+    
+    class func fetchObjects<T: NSManagedObject>(withContext context: NSManagedObjectContext, sortedBy: String?, ascending: Bool?) throws -> [T] {
+        guard let fetchRequest = T.fetchRequest() as? NSFetchRequest<T> else {
+            throw CoreDataError.couldNotCreateFetchRequest
+        }
+        if let sortBy = sortedBy, let ascending = ascending {
+            let sortDescriptor = NSSortDescriptor(key: sortBy, ascending: ascending)
+            let sortDescriptors = [sortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+        }
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results
+        } catch {
+            throw CoreDataError.errorWhileFetchingData
         }
     }
 }
