@@ -21,6 +21,7 @@ class TestViewModel: XCTestCase {
         let viewModel = MainViewModel()
         
         //create a brand new test coredatastack, with an in-memory managed object context.
+        //do this for every test, to ensure a fresh in-memory store is used for each (no overlap in data)
         let testStack = TestCoreDataStack()
         let context = testStack.mainContext
         viewModel.context = context
