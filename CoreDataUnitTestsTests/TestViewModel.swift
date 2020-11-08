@@ -14,23 +14,18 @@ import CoreData
 class TestViewModel: XCTestCase {
     
     let viewModel = MainViewModel()
-    let context = UnitTestHelpers.setUpInMemoryManagedObjectContext()
-    
-    override func setUp() {
-        super.setUp()
-        //put our test context onto the viewmodel
-        viewModel.context = self.context
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+    let testStack = TestCoreDataStack()
     
     func testCreateAnObject() {
-        //empty store of objects by deleting all.  then add 3 object to it.
+        
+        let viewModel = MainViewModel()
+        
+        //create a brand new test coredatastack, with an in-memory managed object context.
+        let testStack = TestCoreDataStack()
+        let context = testStack.mainContext
+        viewModel.context = context
+        
         do {
-            try UnitTestHelpers.deleteAllObjects(objectType: ExampleObject.self, withContext: context)
             try viewModel.createAnObject()
             try viewModel.createAnObject()
             try viewModel.createAnObject()

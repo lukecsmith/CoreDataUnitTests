@@ -20,31 +20,6 @@ enum CoreDataError: Error {
 
 class UnitTestHelpers {
     
-    class func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext {
-        
-        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
-        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
-        do {
-            try persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
-        } catch {
-            fatalError("Adding in-memory persistent store failed")
-        }
-        
-        let context = NSManagedObjectContext.init(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = persistentStoreCoordinator
-        
-        /* create a dummy object, then delete it.  this avoids fetch request errors later */
-        let testObject = ExampleObject(context: context)
-        context.delete(testObject)
-        do {
-            try context.save()
-        } catch {
-            fatalError("Unable to save context")
-        }
-        
-        return context
-    }
-    
     class func deleteAllObjects<T: NSManagedObject>(objectType: T.Type, withContext moc: NSManagedObjectContext) throws {
         guard let fetchRequest: NSFetchRequest<T> = T.fetchRequest() as? NSFetchRequest<T> else {
             throw CoreDataError.couldNotCreateFetchRequest
